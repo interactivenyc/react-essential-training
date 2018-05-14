@@ -12,8 +12,9 @@ render(
 	<BrowserRouter>
 		<Switch>
 			<Route exact path="/" component={App}/>
-			<Route path="/list-days" component={App} />
-			<Route path="/add-day" component={App} />
+			// <Route path="/list-days:filter" component={App} />
+			<Route path="/list-days" component={App}/>
+			<Route path="/add-day" component={App}/>
 			<Route path="*" component={Whoops404}/>
 		</Switch>
 	</BrowserRouter>,

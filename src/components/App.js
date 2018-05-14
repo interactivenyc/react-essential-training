@@ -2,10 +2,12 @@ import { Component } from 'react'
 import { SkiDayList } from './SkiDayList'
 import { SkiDayCount } from './SkiDayCount'
 import { AddDayForm } from './AddDayForm'
+import { Menu } from './Menu'
 
 export class App extends Component {
 	constructor(props) {
 		super(props)
+		console.log("props", props);
 		this.state = {
 			allSkiDays: [
 			{
@@ -34,9 +36,19 @@ export class App extends Component {
 		return allSkiDays.filter(
 			(day) => (filter) ? day[filter] : day).length
 	}
+	getFilter(){
+		var url = window.location.pathname;
+		var filter = '';
+		if (url.indexOf('list-days/') > 0) {
+			filter = url.split('/').pop()
+			console.log('filter=', filter);
+		}
+		return filter;
+	}
 	render() {
 		return (
 			<div className="app">
+				<Menu />
 			{(this.props.location.pathname === "/") ?
 			  <SkiDayCount total={this.countDays()}
 							 powder={this.countDays(
@@ -47,7 +59,9 @@ export class App extends Component {
 							 	)}/> :
 			 (this.props.location.pathname === "/add-day") ?
 			 	<AddDayForm /> :
-			 	<SkiDayList days={this.state.allSkiDays}/>
+					<SkiDayList days={this.state.allSkiDays}
+				 				filter={this.getFilter()}/>
+							//filter={this.props.params.filter}/>	
 			}
 
 			</div>
